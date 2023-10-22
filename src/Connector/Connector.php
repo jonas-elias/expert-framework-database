@@ -48,7 +48,7 @@ class Connector
      */
     private function getDsn(array $config): string
     {
-        return "{$config['connection']}:host={$config['host']};port={$config['port']};";
+        return "{$config['connection']}:host={$config['host']};port={$config['port']};dbname={$config['dbname']};";
     }
 
     /**
