@@ -1,0 +1,55 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "d5f1f6a2fb26c7c2a9ffa8add0aba563",
+    "packages": [
+        {
+            "name": "expert-framework/helpers",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jonas-elias/expert-framework-helpers.git",
+                "reference": "d22e262e7acd2644633fc28433ff954107a665e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jonas-elias/expert-framework-helpers/zipball/d22e262e7acd2644633fc28433ff954107a665e8",
+                "reference": "d22e262e7acd2644633fc28433ff954107a665e8",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ExpertFramework\\Helpers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Elias",
+                    "email": "jonasdasilvaelias@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/jonas-elias/expert-framework-helpers/issues",
+                "source": "https://github.com/jonas-elias/expert-framework-helpers/tree/v1.0.3"
+            },
+            "time": "2023-10-20T23:12:07+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
+}
