@@ -36,7 +36,7 @@ class QueryBuilder extends QueryGrammar
     /**
      * @var array $select
      */
-    public array $select = [];
+    public array $select = ['*'];
 
     /**
      * @var array $joins
