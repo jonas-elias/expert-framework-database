@@ -13,6 +13,6 @@
         }
     ],
     "require": {
-        "expert-framework/helpers": "^1.0"
+        "expert-framework/helpers": "^2.0"
     }
 }

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5f1f6a2fb26c7c2a9ffa8add0aba563",
+    "content-hash": "6267842d04f4c30263bc8f1d8ca9e76d",
     "packages": [
         {
             "name": "expert-framework/helpers",
-            "version": "v1.0.3",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jonas-elias/expert-framework-helpers.git",
-                "reference": "d22e262e7acd2644633fc28433ff954107a665e8"
+                "reference": "efb310addb5ab8bf4926fd53c914bfd8290cb84d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jonas-elias/expert-framework-helpers/zipball/d22e262e7acd2644633fc28433ff954107a665e8",
-                "reference": "d22e262e7acd2644633fc28433ff954107a665e8",
+                "url": "https://api.github.com/repos/jonas-elias/expert-framework-helpers/zipball/efb310addb5ab8bf4926fd53c914bfd8290cb84d",
+                "reference": "efb310addb5ab8bf4926fd53c914bfd8290cb84d",
                 "shasum": ""
             },
             "type": "library",
@@ -38,9 +38,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jonas-elias/expert-framework-helpers/issues",
-                "source": "https://github.com/jonas-elias/expert-framework-helpers/tree/v1.0.3"
+                "source": "https://github.com/jonas-elias/expert-framework-helpers/tree/v2.0.0"
             },
-            "time": "2023-10-20T23:12:07+00:00"
+            "time": "2023-10-22T14:58:04+00:00"
         }
     ],
     "packages-dev": [],
