@@ -172,9 +172,9 @@ class QueryBuilder extends QueryGrammar
     /**
      * Method to get select
      *
-     * @return mixed
+     * @return array
      */
-    public function get(): mixed
+    public function get(): array
     {
         $this->sql = $this->compileSelect($this);
         $this->sql .= $this->compileJoin($this);
@@ -184,14 +184,31 @@ class QueryBuilder extends QueryGrammar
         return $this->execute();
     }
 
-    public function execute(array $data = [])
+    /**
+     * Method to execute query sql
+     *
+     * @param array $data
+     * @return bool|array
+     * @throws ExceptionExecuteQuery
+     */
+    public function execute(array $data = []): bool|array
     {
         try {
-            $stmt = $this->getPdo();
+            $statement = $this->getPdo()->prepare($this->sql);
+            $response = $statement->execute($this->bindings);
 
-            $stmt = $stmt->prepare($this->sql);
+            $sqlPrefix = strtoupper(substr($this->sql, 0, 6));
 
-            return $stmt->execute($this->bindings);
+            switch ($sqlPrefix) {
+                case 'INSERT':
+                case 'UPDATE':
+                case 'DELETE':
+                    return $response;
+                case 'SELECT':
+                    return $statement->fetchAll();
+                default:
+                    throw new ExceptionExecuteQuery();
+            }
         } catch (ExceptionExecuteQuery $e) {
             throw new ExceptionExecuteQuery($e->getMessage() . '. Sql Query: ' . $this->sql . '.');
         }
