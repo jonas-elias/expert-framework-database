@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ExpertFramework\Database\Query\Grammar;
 
 use ExpertFramework\Database\Connector\Connector;

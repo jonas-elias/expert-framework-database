@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ExpertFramework\Database\Query;
 
 use ExpertFramework\Database\Exception\ExceptionExecuteQuery;
@@ -88,7 +90,7 @@ class QueryBuilder extends QueryGrammar
         }
 
         $this->sql = $this->compileInsert($this);
-        $this->compileBindings($fields);
+        $this->bindings = $this->compileBindings($fields);
 
         return $this->execute();
     }
@@ -107,7 +109,7 @@ class QueryBuilder extends QueryGrammar
 
         $this->sql = $this->compileUpdate($this);
         $this->sql .= $this->compileWheres($this);
-        $this->compileBindings($fields);
+        $this->bindings = $this->compileBindings($fields);
 
         return $this->execute();
     }
@@ -187,11 +189,10 @@ class QueryBuilder extends QueryGrammar
     /**
      * Method to execute query sql
      *
-     * @param array $data
      * @return bool|array
      * @throws ExceptionExecuteQuery
      */
-    private function execute(array $data = []): bool|array
+    private function execute(): bool|array
     {
         try {
             $statement = $this->getPdo()->prepare($this->sql);
