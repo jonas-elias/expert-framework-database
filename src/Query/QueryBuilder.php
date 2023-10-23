@@ -129,7 +129,7 @@ class QueryBuilder extends QueryGrammar
             $this->wheres[] = compact('column', 'value', 'boolean', 'operator');
         }
 
-        $this->bindings[] = [":{$column}" => $value];
+        $this->bindings = array_merge($this->bindings, [":{$column}" => $value]);
 
         return $this;
     }
@@ -191,15 +191,15 @@ class QueryBuilder extends QueryGrammar
      * @return bool|array
      * @throws ExceptionExecuteQuery
      */
-    public function execute(array $data = []): bool|array
+    private function execute(array $data = []): bool|array
     {
         try {
             $statement = $this->getPdo()->prepare($this->sql);
             $response = $statement->execute($this->bindings);
+ 
+            $sqlPrefix = strtoupper(substr($this->sql, 0, 6));
 
             $this->resetBuilder();
-
-            $sqlPrefix = strtoupper(substr($this->sql, 0, 6));
 
             switch ($sqlPrefix) {
                 case 'INSERT':
