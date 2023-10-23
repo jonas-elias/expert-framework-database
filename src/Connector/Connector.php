@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ExpertFramework\Database\Connector;
 
 use PDO;
