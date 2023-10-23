@@ -197,6 +197,8 @@ class QueryBuilder extends QueryGrammar
             $statement = $this->getPdo()->prepare($this->sql);
             $response = $statement->execute($this->bindings);
 
+            $this->resetBuilder();
+
             $sqlPrefix = strtoupper(substr($this->sql, 0, 6));
 
             switch ($sqlPrefix) {
@@ -212,5 +214,22 @@ class QueryBuilder extends QueryGrammar
         } catch (ExceptionExecuteQuery $e) {
             throw new ExceptionExecuteQuery($e->getMessage() . '. Sql Query: ' . $this->sql . '.');
         }
+    }
+
+    /**
+     * Method to reset builder attributes class
+     *
+     * @return void
+     */
+    private function resetBuilder()
+    {
+        $this->sql = '';
+        $this->table = '';
+        $this->insert = [];
+        $this->update = [];
+        $this->select = ['*'];
+        $this->joins = [];
+        $this->wheres = [];
+        $this->bindings = [];
     }
 }
