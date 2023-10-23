@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ExpertFramework\Database;
 
 use ExpertFramework\Database\Query\QueryBuilder;
@@ -12,14 +14,20 @@ use ExpertFramework\Database\Query\QueryBuilder;
  */
 
 /**
- * @method static void table(string $table)
+ * @method static Database table(string $table)
+ * @method bool insert(?array $fields = [])
+ * @method bool update(?array $fields = [])
+ * @method Database select(?array $fields = [])
+ * @method Database where(string $column, string $operator, string $value, ?string $boolean = 'and')
+ * @method Database join(string $table, string $first, string $operator, string $second, ?string $type = 'JOIN')
+ * @method array get()
  */
 class Database
 {
     /**
      * @var QueryBuilder $queryBuilder
      */
-    protected static QueryBuilder|null $queryBuilder = null;
+    private static QueryBuilder|null $queryBuilder = null;
 
     /**
      * Call static by database class
@@ -38,7 +46,7 @@ class Database
      *
      * @return QueryBuilder
      */
-    public static function getQueryBuilder(): QueryBuilder
+    private static function getQueryBuilder(): QueryBuilder
     {
         if (self::$queryBuilder === null) {
             self::$queryBuilder = new QueryBuilder();
