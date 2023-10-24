@@ -95,7 +95,7 @@ class QueryGrammar extends Connector
         $sql = '';
         foreach ($builder->wheres as $where) {
             $boolean = $where['boolean'] ?? 'WHERE';
-            $sql .= " {$boolean} {$where['column']} {$where['operator']} :{$where['column']}";
+            $sql .= " {$boolean} {$where['column']} {$where['operator']} :{$this->formatColumnBind($where['column'])}";
         }
 
         return $sql;
@@ -110,7 +110,19 @@ class QueryGrammar extends Connector
     protected function compileBindings(?array $fields = []): array
     {
         return array_combine(array_map(function ($key) {
-            return ':' . $key;
+            return ':' . $this->formatColumnBind($key);
         }, array_keys($fields)), $fields);
+    }
+
+    /**
+     * Method to format column bind
+     *
+     * @param string $bindColumn
+     * @return string
+     */
+    private function formatColumnBind(string $bindColumn): string
+    {
+        $list = explode('.', $bindColumn);
+        return end($list);
     }
 }

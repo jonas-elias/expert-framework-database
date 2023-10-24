@@ -135,7 +135,7 @@ class QueryBuilder extends QueryGrammar
             $this->wheres[] = compact('column', 'value', 'boolean', 'operator');
         }
 
-        $this->bindings = array_merge($this->bindings, [":{$column}" => $value]);
+        $this->bindings = array_merge($this->bindings, [":{$this->formatColumnBind($column)}" => $value]);
 
         return $this;
     }
@@ -185,7 +185,6 @@ class QueryBuilder extends QueryGrammar
         $this->sql = $this->compileSelect($this);
         $this->sql .= $this->compileJoin($this);
         $this->sql .= $this->compileWheres($this);
-        $this->compileWheres($this);
 
         return $this->execute();
     }
