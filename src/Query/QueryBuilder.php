@@ -90,7 +90,7 @@ class QueryBuilder extends QueryGrammar
         }
 
         $this->sql = $this->compileInsert($this);
-        $this->bindings = $this->compileBindings($fields);
+        $this->bindings = array_merge($this->bindings, $this->compileBindings($fields));
 
         return $this->execute();
     }
@@ -109,7 +109,7 @@ class QueryBuilder extends QueryGrammar
 
         $this->sql = $this->compileUpdate($this);
         $this->sql .= $this->compileWheres($this);
-        $this->bindings = $this->compileBindings($fields);
+        $this->bindings = array_merge($this->bindings, $this->compileBindings($fields));
 
         return $this->execute();
     }
@@ -119,12 +119,16 @@ class QueryBuilder extends QueryGrammar
      *
      * @param string $column
      * @param string $operator
-     * @param string $value
+     * @param string|float|integer $value
      * @param ?string $boolean = 'and'
      * @return QueryBuilder
      */
-    public function where(string $column, string $operator, string $value, ?string $boolean = 'and'): QueryBuilder
-    {
+    public function where(
+        string $column,
+        string $operator,
+        string|float|int $value,
+        ?string $boolean = 'and'
+    ): QueryBuilder {
         if (!isset($this->wheres[0])) {
             $this->wheres[] = compact('column', 'operator', 'value');
         } else {
@@ -197,7 +201,7 @@ class QueryBuilder extends QueryGrammar
         try {
             $statement = $this->getPdo()->prepare($this->sql);
             $response = $statement->execute($this->bindings);
- 
+
             $sqlPrefix = strtoupper(substr($this->sql, 0, 6));
 
             $this->resetBuilder();
