@@ -42,13 +42,14 @@ class QueryGrammar extends Connector
     {
         $sql = "UPDATE {$builder->table} SET";
 
+        $firstField = true;
         foreach ($builder->update as $field) {
-            $sql .= " {$field} = :{$field}";
-        }
-
-        foreach ($builder->wheres as $where) {
-            $boolean = $where['boolean'] ?? 'WHERE';
-            $sql .= " {$boolean} {$where['column']} {$where['operator']} :{$where['column']}";
+            if ($firstField) {
+                $firstField = false;
+                $sql .= " {$field} = :{$field}";
+                continue;
+            }
+            $sql .= ", {$field} = :{$field}";
         }
 
         return $sql;
