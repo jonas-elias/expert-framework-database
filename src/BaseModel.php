@@ -49,6 +49,7 @@ class BaseModel extends Database
      */
     public static function create(array $data): bool
     {
+        $data = static::removeNullValues($data);
         return static::table(static::$table)->insert($data);
     }
 
@@ -61,6 +62,7 @@ class BaseModel extends Database
      */
     public static function update(array $data, int $id): bool
     {
+        $data = static::removeNullValues($data);
         return static::table(static::$table)->where('id', '=', $id)->update($data);
     }
 
@@ -77,5 +79,21 @@ class BaseModel extends Database
             $statement->where($column, '=', $value);
         }
         return $statement->where('id', '=', $id)->get();
+    }
+    
+    /**
+     * Method to remove null values
+     *
+     * @param array $data
+     * @return array
+     */
+    private static function removeNullValues(array $data): array
+    {
+        foreach ($data as $key => $value) {
+            if (is_null($value)) {
+                unset($data[$key]);
+            }
+        }
+        return $data;
     }
 }
