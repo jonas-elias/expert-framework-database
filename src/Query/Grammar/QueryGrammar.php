@@ -120,7 +120,7 @@ class QueryGrammar extends Connector
      * @param string $bindColumn
      * @return string
      */
-    private function formatColumnBind(string $bindColumn): string
+    protected function formatColumnBind(string $bindColumn): string
     {
         $list = explode('.', $bindColumn);
         return end($list);
