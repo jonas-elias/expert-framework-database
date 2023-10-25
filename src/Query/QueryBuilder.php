@@ -64,6 +64,43 @@ class QueryBuilder extends QueryGrammar
     {
     }
 
+
+    /**
+     * Method to create transaction
+     *
+     * @return QueryBuilder
+     */
+    public function begin()
+    {
+        $this->getPdo()->beginTransaction();
+
+        return $this;
+    }
+
+    /**
+     * Method to create commit
+     *
+     * @return QueryBuilder
+     */
+    public function commit()
+    {
+        $this->getPdo()->commit();
+
+        return $this;
+    }
+
+    /**
+     * Method to create rollback
+     *
+     * @return QueryBuilder
+     */
+    public function rollback(): QueryBuilder
+    {
+        $this->getPdo()->rollBack();
+
+        return $this;
+    }
+
     /**
      * Method set table
      *
@@ -92,7 +129,29 @@ class QueryBuilder extends QueryGrammar
         $this->sql = $this->compileInsert($this);
         $this->bindings = array_merge($this->bindings, $this->compileBindings($fields));
 
-        return $this->execute();
+        if ($this->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Method to insert fields and get id
+     *
+     * @param ?array $fiels
+     * @return int
+     */
+    public function insertGetId(array $fields = []): int
+    {
+        foreach ($fields as $field => $value) {
+            $this->insert[] = $field;
+        }
+
+        $this->sql = $this->compileInsertGetId($this);
+        $this->bindings = array_merge($this->bindings, $this->compileBindings($fields));
+
+        $stmt = $this->execute();
+        return $stmt->fetchColumn();
     }
 
     /**
@@ -192,10 +251,10 @@ class QueryBuilder extends QueryGrammar
     /**
      * Method to execute query sql
      *
-     * @return bool|array
+     * @return bool|array|\PDOStatement
      * @throws ExceptionExecuteQuery
      */
-    private function execute(): bool|array
+    private function execute(): bool|array|\PDOStatement
     {
         try {
             $statement = $this->getPdo()->prepare($this->sql);
@@ -207,6 +266,7 @@ class QueryBuilder extends QueryGrammar
 
             switch ($sqlPrefix) {
                 case 'INSERT':
+                    return $statement;
                 case 'UPDATE':
                 case 'DELETE':
                     return $response;
