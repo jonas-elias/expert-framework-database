@@ -7,20 +7,19 @@ namespace ExpertFramework\Database\Connector;
 use PDO;
 
 /**
- * class Connector
+ * class Connector.
  *
- * @package ExpertFramework\Database
  * @author jonas-elias
  */
 class Connector
 {
     /**
-     * @var PDO $pdo
+     * @var PDO
      */
     private PDO|null $pdo = null;
 
     /**
-     * Method to connect database
+     * Method to connect database.
      *
      * @return PDO|null
      */
@@ -43,9 +42,10 @@ class Connector
     }
 
     /**
-     * Method to get data source name
+     * Method to get data source name.
      *
      * @param array $config
+     *
      * @return string
      */
     private function getDsn(array $config): string
@@ -54,7 +54,7 @@ class Connector
     }
 
     /**
-     * Method to get pdo
+     * Method to get pdo.
      *
      * @return PDO
      */
