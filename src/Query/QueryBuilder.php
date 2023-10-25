@@ -242,6 +242,19 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
+     * Method to delete item
+     *
+     * @return bool
+     */
+    public function delete(): bool
+    {
+        $this->sql = $this->compileDelete($this);
+        $this->sql .= $this->compileWheres($this);
+
+        return $this->execute();
+    }
+
+    /**
      * Method to get select.
      *
      * @return array
@@ -284,7 +297,7 @@ class QueryBuilder extends QueryGrammar
                     throw new ExceptionExecuteQuery();
             }
         } catch (ExceptionExecuteQuery $e) {
-            throw new ExceptionExecuteQuery($e->getMessage().'. Sql Query: '.$this->sql.'.');
+            throw new ExceptionExecuteQuery('Sql Query: ' . $this->sql);
         }
     }
 

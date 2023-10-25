@@ -23,6 +23,7 @@ use ExpertFramework\Database\Query\QueryBuilder;
  * @method        Database select(?array $fields = [])
  * @method        Database where(string $column, string $operator, string|float|int $value, ?string $boolean = 'and')
  * @method        Database join(string $table, string $first, string $operator, string $second, ?string $type = 'JOIN')
+ * @method        bool     delete()
  * @method        array    get()
  */
 class Database

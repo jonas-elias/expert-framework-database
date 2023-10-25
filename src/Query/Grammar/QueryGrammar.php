@@ -124,6 +124,18 @@ class QueryGrammar extends Connector
     }
 
     /**
+     * Method to compile delete.
+     *
+     * @param QueryBuilder $builder
+     *
+     * @return string
+     */
+    protected function compileDelete(QueryBuilder $builder): string
+    {
+        return "DELETE FROM {$builder->table}";
+    }
+
+    /**
      * Method to compile bindings.
      *
      * @param ?array $fields
