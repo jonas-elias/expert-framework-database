@@ -5,30 +5,29 @@ declare(strict_types=1);
 namespace ExpertFramework\Database;
 
 /**
- * class BaseModel
+ * class BaseModel.
  *
- * @package ExpertFramework\Database
  * @author jonas-elias
  */
 class BaseModel extends Database
 {
     /**
-     * @var string $table
+     * @var string
      */
     protected static string $table = '';
 
     /**
-     * @var array $columns
+     * @var array
      */
     protected static array $columns = [];
 
     /**
-     * @var array $conditionEqual
+     * @var array
      */
     protected static array $conditionEqual = [];
 
     /**
-     * Method to get all attributes table model
+     * Method to get all attributes table model.
      *
      * @return array|null
      */
@@ -38,38 +37,44 @@ class BaseModel extends Database
         foreach (static::$conditionEqual as $column => $value) {
             $statement->where($column, '=', $value);
         }
+
         return $statement->select(static::$columns)->get();
     }
 
     /**
-     * Method to insert data in database
+     * Method to insert data in database.
      *
      * @param array $data
+     *
      * @return bool
      */
     public static function create(array $data): bool
     {
         $data = static::removeNullValues($data);
+
         return static::table(static::$table)->insert($data);
     }
 
     /**
-     * Method to update data in database
+     * Method to update data in database.
      *
      * @param array $data
-     * @param int $id
+     * @param int   $id
+     *
      * @return bool
      */
     public static function update(array $data, int $id): bool
     {
         $data = static::removeNullValues($data);
+
         return static::table(static::$table)->where('id', '=', $id)->update($data);
     }
 
     /**
-     * Method to find by id
+     * Method to find by id.
      *
      * @param int $id
+     *
      * @return array
      */
     public static function find(int $id): array
@@ -78,13 +83,15 @@ class BaseModel extends Database
         foreach (static::$conditionEqual as $column => $value) {
             $statement->where($column, '=', $value);
         }
+
         return $statement->where('id', '=', $id)->get();
     }
 
     /**
-     * Method to insert and get id
+     * Method to insert and get id.
      *
      * @param array $data
+     *
      * @return int
      */
     public static function insertGetId(array $data): int
@@ -93,9 +100,10 @@ class BaseModel extends Database
     }
 
     /**
-     * Method to remove null values
+     * Method to remove null values.
      *
      * @param array $data
+     *
      * @return array
      */
     private static function removeNullValues(array $data): array
@@ -105,6 +113,7 @@ class BaseModel extends Database
                 unset($data[$key]);
             }
         }
+
         return $data;
     }
 }

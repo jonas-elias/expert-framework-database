@@ -8,17 +8,17 @@ use ExpertFramework\Database\Connector\Connector;
 use ExpertFramework\Database\Query\QueryBuilder;
 
 /**
- * class QueryGrammar
+ * class QueryGrammar.
  *
- * @package ExpertFramework\Database
  * @author jonas-elias
  */
 class QueryGrammar extends Connector
 {
     /**
-     * Method to compile insert
+     * Method to compile insert.
      *
      * @param QueryBuilder $builder
+     *
      * @return string
      */
     protected function compileInsert(QueryBuilder $builder): string
@@ -26,16 +26,17 @@ class QueryGrammar extends Connector
         $table = $builder->table;
         $fields = implode(', ', $builder->insert);
         $fieldsValues = implode(', ', array_map(function ($item) {
-            return ':' . $item;
+            return ':'.$item;
         }, $builder->insert));
 
         return "INSERT INTO {$table} ({$fields}) VALUES ({$fieldsValues})";
     }
 
     /**
-     * Method to compile insert get id
+     * Method to compile insert get id.
      *
      * @param QueryBuilder $builder
+     *
      * @return string
      */
     protected function compileInsertGetId(QueryBuilder $builder): string
@@ -43,16 +44,17 @@ class QueryGrammar extends Connector
         $table = $builder->table;
         $fields = implode(', ', $builder->insert);
         $fieldsValues = implode(', ', array_map(function ($item) {
-            return ':' . $item;
+            return ':'.$item;
         }, $builder->insert));
 
         return "INSERT INTO {$table} ({$fields}) VALUES ({$fieldsValues}) RETURNING id";
     }
 
     /**
-     * Method to compile update
+     * Method to compile update.
      *
      * @param QueryBuilder $builder
+     *
      * @return string
      */
     protected function compileUpdate(QueryBuilder $builder): string
@@ -73,9 +75,10 @@ class QueryGrammar extends Connector
     }
 
     /**
-     * Method to compile select
+     * Method to compile select.
      *
      * @param QueryBuilder $builder
+     *
      * @return string
      */
     protected function compileSelect(QueryBuilder $builder): string
@@ -86,9 +89,10 @@ class QueryGrammar extends Connector
     }
 
     /**
-     * Method to compile join
+     * Method to compile join.
      *
      * @param QueryBuilder $builder
+     *
      * @return string
      */
     protected function compileJoin(QueryBuilder $builder): string
@@ -102,9 +106,10 @@ class QueryGrammar extends Connector
     }
 
     /**
-     * Method to compile wheres
+     * Method to compile wheres.
      *
      * @param QueryBuilder $builder
+     *
      * @return string
      */
     protected function compileWheres(QueryBuilder $builder): string
@@ -119,27 +124,30 @@ class QueryGrammar extends Connector
     }
 
     /**
-     * Method to compile bindings
+     * Method to compile bindings.
      *
      * @param ?array $fields
+     *
      * @return array
      */
     protected function compileBindings(?array $fields = []): array
     {
         return array_combine(array_map(function ($key) {
-            return ':' . $this->formatColumnBind($key);
+            return ':'.$this->formatColumnBind($key);
         }, array_keys($fields)), $fields);
     }
 
     /**
-     * Method to format column bind
+     * Method to format column bind.
      *
      * @param string $bindColumn
+     *
      * @return string
      */
     protected function formatColumnBind(string $bindColumn): string
     {
         $list = explode('.', $bindColumn);
+
         return end($list);
     }
 }

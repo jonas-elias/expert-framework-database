@@ -8,55 +8,54 @@ use ExpertFramework\Database\Exception\ExceptionExecuteQuery;
 use ExpertFramework\Database\Query\Grammar\QueryGrammar;
 
 /**
- * class QueryBuilder
+ * class QueryBuilder.
  *
- * @package ExpertFramework\Database
  * @author jonas-elias
  */
 class QueryBuilder extends QueryGrammar
 {
     /**
-     * @var string $sql
+     * @var string
      */
     private string $sql = '';
 
     /**
-     * @var string $table
+     * @var string
      */
     public string $table = '';
 
     /**
-     * @var array $insert
+     * @var array
      */
     public array $insert = [];
 
     /**
-     * @var array $update
+     * @var array
      */
     public array $update = [];
 
     /**
-     * @var array $select
+     * @var array
      */
     public array $select = ['*'];
 
     /**
-     * @var array $joins
+     * @var array
      */
     public array $joins = [];
 
     /**
-     * @var array $wheres
+     * @var array
      */
     public array $wheres = [];
 
     /**
-     * @var array $bindings
+     * @var array
      */
     public array $bindings = [];
 
     /**
-     * Method constructor
+     * Method constructor.
      *
      * @return void
      */
@@ -64,9 +63,8 @@ class QueryBuilder extends QueryGrammar
     {
     }
 
-
     /**
-     * Method to create transaction
+     * Method to create transaction.
      *
      * @return QueryBuilder
      */
@@ -78,7 +76,7 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to create commit
+     * Method to create commit.
      *
      * @return QueryBuilder
      */
@@ -90,7 +88,7 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to create rollback
+     * Method to create rollback.
      *
      * @return QueryBuilder
      */
@@ -102,9 +100,10 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method set table
+     * Method set table.
      *
      * @param string $table
+     *
      * @return QueryBuilder
      */
     public function table(string $table): QueryBuilder
@@ -115,9 +114,10 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to insert fields
+     * Method to insert fields.
      *
      * @param ?array $fiels
+     *
      * @return bool
      */
     public function insert(?array $fields = []): bool
@@ -132,13 +132,15 @@ class QueryBuilder extends QueryGrammar
         if ($this->execute()) {
             return true;
         }
+
         return false;
     }
 
     /**
-     * Method to insert fields and get id
+     * Method to insert fields and get id.
      *
      * @param ?array $fiels
+     *
      * @return int
      */
     public function insertGetId(array $fields = []): int
@@ -151,13 +153,15 @@ class QueryBuilder extends QueryGrammar
         $this->bindings = array_merge($this->bindings, $this->compileBindings($fields));
 
         $stmt = $this->execute();
+
         return $stmt->fetchColumn();
     }
 
     /**
-     * Method to update fields
+     * Method to update fields.
      *
      * @param ?array $fields
+     *
      * @return bool
      */
     public function update(?array $fields = []): bool
@@ -174,12 +178,13 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to set wheres
+     * Method to set wheres.
      *
-     * @param string $column
-     * @param string $operator
-     * @param string|float|integer $value
-     * @param ?string $boolean = 'and'
+     * @param string           $column
+     * @param string           $operator
+     * @param string|float|int $value
+     * @param ?string          $boolean  = 'and'
+     *
      * @return QueryBuilder
      */
     public function where(
@@ -200,9 +205,10 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to set select fields
+     * Method to set select fields.
      *
      * @param ?array $fields
+     *
      * @return QueryBuilder
      */
     public function select(?array $fields = []): QueryBuilder
@@ -213,13 +219,14 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to set joins fields
+     * Method to set joins fields.
      *
-     * @param string $table
-     * @param string $first
-     * @param string $operator
-     * @param string $second
-     * @param ?string $type = 'JOIN'
+     * @param string  $table
+     * @param string  $first
+     * @param string  $operator
+     * @param string  $second
+     * @param ?string $type     = 'JOIN'
+     *
      * @return QueryBuilder
      */
     public function join(
@@ -235,7 +242,7 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to get select
+     * Method to get select.
      *
      * @return array
      */
@@ -249,10 +256,11 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to execute query sql
+     * Method to execute query sql.
+     *
+     * @throws ExceptionExecuteQuery
      *
      * @return bool|array|\PDOStatement
-     * @throws ExceptionExecuteQuery
      */
     private function execute(): bool|array|\PDOStatement
     {
@@ -276,12 +284,12 @@ class QueryBuilder extends QueryGrammar
                     throw new ExceptionExecuteQuery();
             }
         } catch (ExceptionExecuteQuery $e) {
-            throw new ExceptionExecuteQuery($e->getMessage() . '. Sql Query: ' . $this->sql . '.');
+            throw new ExceptionExecuteQuery($e->getMessage().'. Sql Query: '.$this->sql.'.');
         }
     }
 
     /**
-     * Method to reset builder attributes class
+     * Method to reset builder attributes class.
      *
      * @return void
      */
