@@ -15,7 +15,11 @@ use ExpertFramework\Database\Query\QueryBuilder;
 
 /**
  * @method static Database table(string $table)
+ * @method static void begin()
+ * @method static void commit()
+ * @method static void rollback()
  * @method bool insert(?array $fields = [])
+ * @method int insertGetId(?array $fields = [])
  * @method bool update(?array $fields = [])
  * @method Database select(?array $fields = [])
  * @method Database where(string $column, string $operator, string|float|int $value, ?string $boolean = 'and')

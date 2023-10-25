@@ -33,6 +33,23 @@ class QueryGrammar extends Connector
     }
 
     /**
+     * Method to compile insert get id
+     *
+     * @param QueryBuilder $builder
+     * @return string
+     */
+    protected function compileInsertGetId(QueryBuilder $builder): string
+    {
+        $table = $builder->table;
+        $fields = implode(', ', $builder->insert);
+        $fieldsValues = implode(', ', array_map(function ($item) {
+            return ':' . $item;
+        }, $builder->insert));
+
+        return "INSERT INTO {$table} ({$fields}) VALUES ({$fieldsValues}) RETURNING id";
+    }
+
+    /**
      * Method to compile update
      *
      * @param QueryBuilder $builder
