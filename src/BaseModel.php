@@ -80,7 +80,18 @@ class BaseModel extends Database
         }
         return $statement->where('id', '=', $id)->get();
     }
-    
+
+    /**
+     * Method to insert and get id
+     *
+     * @param array $data
+     * @return int
+     */
+    public static function insertGetId(array $data): int
+    {
+        return static::table(static::$table)->insertGetId($data);
+    }
+
     /**
      * Method to remove null values
      *
