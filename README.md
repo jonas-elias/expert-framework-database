@@ -2,6 +2,8 @@
 
 O **Expert Framework Database** é uma biblioteca PHP criada para simplificar a interação com bancos de dados. Ele oferece um construtor de consultas fluente e encadeável para facilitar a realização de operações de banco de dados com alta legibilidade do código.
 
+Componente pertencente ao framework *Jonaselias\ExpertFramework* https://github.com/jonas-elias/mercado-software-expert
+
 ## Instalação 🚀
 
 Para instalar o Componente Expert Framework Database, você pode usar o Composer. Basta executar o comando abaixo:
