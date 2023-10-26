@@ -100,7 +100,7 @@ class BaseModel extends Database
     }
 
     /**
-     * Method to destroy item by id
+     * Method to destroy item by id.
      *
      * @param int $id
      *
