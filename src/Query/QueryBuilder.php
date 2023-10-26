@@ -242,7 +242,7 @@ class QueryBuilder extends QueryGrammar
     }
 
     /**
-     * Method to delete item
+     * Method to delete item.
      *
      * @return bool
      */
@@ -297,7 +297,7 @@ class QueryBuilder extends QueryGrammar
                     throw new ExceptionExecuteQuery();
             }
         } catch (ExceptionExecuteQuery $e) {
-            throw new ExceptionExecuteQuery('Sql Query: ' . $this->sql);
+            throw new ExceptionExecuteQuery('Sql Query: '.$this->sql);
         }
     }
 
