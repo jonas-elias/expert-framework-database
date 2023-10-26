@@ -100,6 +100,18 @@ class BaseModel extends Database
     }
 
     /**
+     * Method to destroy item by id
+     *
+     * @param int $id
+     *
+     * @return bool
+     */
+    public static function destroy(int $id): bool
+    {
+        return static::table(static::$table)->where('id', '=', $id)->delete();
+    }
+
+    /**
      * Method to remove null values.
      *
      * @param array $data
